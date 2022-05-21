@@ -4,10 +4,11 @@ type commandID int
 
 const (
 	CMD_NICK commandID = iota
-	CMD_JOIN
+	CMD_SUBSCRIBE
 	CMD_CHANNELS
 	CMD_MSG
 	CMD_QUIT
+	CMD_SEND
 	// More for every command
 )
 

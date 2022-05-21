@@ -25,7 +25,7 @@ func (s *server) run() {
 		switch cmd.id {
 		case CMD_NICK:
 			s.nick(cmd.client, cmd.args)
-		case CMD_JOIN:
+		case CMD_SUBSCRIBE:
 			s.join(cmd.client, cmd.args)
 		case CMD_CHANNELS:
 			s.listchannels(cmd.client, cmd.args)
@@ -33,6 +33,8 @@ func (s *server) run() {
 			s.msg(cmd.client, cmd.args)
 		case CMD_QUIT:
 			s.quit(cmd.client, cmd.args)
+		case CMD_SEND:
+			s.send(cmd.client, cmd.args)
 		}
 	}
 }
@@ -91,6 +93,10 @@ func (s *server) msg(c *client, args []string) {
 	}
 
 	c.channel.broadcast(c, c.nick+": "+strings.Join(args[1:], " "))
+}
+
+func (s *server) send(c *client, args []string) {
+	log.Printf("These are the args: %s", args)
 }
 
 func (s *server) quit(c *client, args []string) {

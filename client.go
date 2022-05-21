@@ -36,7 +36,7 @@ func (c *client) readInput() {
 			}
 		case "/join":
 			c.commands <- command{
-				id:     CMD_JOIN,
+				id:     CMD_SUBSCRIBE,
 				client: c,
 				args:   args,
 			}
@@ -55,6 +55,12 @@ func (c *client) readInput() {
 		case "/quit":
 			c.commands <- command{
 				id:     CMD_QUIT,
+				client: c,
+				args:   args,
+			}
+		case "/send":
+			c.commands <- command{
+				id:     CMD_SEND,
 				client: c,
 				args:   args,
 			}

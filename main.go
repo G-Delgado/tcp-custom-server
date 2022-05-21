@@ -8,6 +8,8 @@ import (
 // "net_test/utils"
 
 func main() {
+	s := newServer()
+	go s.run()
 	// server, err := net.Listen("tcp", "localhost:8080")
 	// if err != nil {
 	// 	fmt.Print("Sape")
@@ -16,8 +18,6 @@ func main() {
 	// fi, err := os.Open("Sape")
 	// io.Copy(conn, fi)
 	// // utils.CheckError(err)
-	s := newServer()
-	go s.run()
 
 	listener, err := net.Listen("tcp", ":8888")
 	if err != nil {
