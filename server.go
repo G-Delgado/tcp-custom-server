@@ -3,8 +3,11 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"log"
 	"net"
+	"os"
 	"strings"
 )
 
@@ -49,7 +52,6 @@ func (s *server) newClient(conn net.Conn) {
 	}
 
 	c.readInput()
-
 }
 
 func (s *server) nick(c *client, args []string) {
@@ -97,6 +99,18 @@ func (s *server) msg(c *client, args []string) {
 
 func (s *server) send(c *client, args []string) {
 	log.Printf("These are the args: %s", args)
+	fi, err := os.Open("./" + args[1])
+	if err != nil {
+		log.Printf("Not good")
+	}
+	defer fi.Close()
+	ss, _ := ioutil.ReadFile(args[1])
+	_, err = io.Copy(c.conn, fi)
+	c.conn.Write([]byte("Sape"))
+	c.conn.Write(ss)
+	log.Printf(string(ss))
+	// n, err := file.ReadA()
+	// c.conn.Write()
 }
 
 func (s *server) quit(c *client, args []string) {
